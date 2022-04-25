@@ -1,0 +1,169 @@
+#include<stdio.h>
+
+#define MAX 100000
+int stack[MAX];
+int top = 0;
+
+void pop()
+{
+	stack[top] = 0;
+}
+void push(int data)
+{
+	stack[top] = data;
+}
+
+
+int main() 
+{
+
+	int input;
+	int k; //k - 사용자 입력
+	int sum = 0;
+
+	scanf("%d", &k);
+	
+
+	for (int i = 0; i < k; i++)
+	{
+		scanf("%d", &input);
+		if (input == 0)
+		{
+			top--;
+			pop();
+		}
+		else
+		{
+			push(input);
+			top++;
+		}
+	}
+	for (int i = 0; i < k; i++)
+	{
+		sum += stack[i];
+	}
+	printf("%d", sum);
+    
+    return 0;
+}
+--------------------------------------------------------------------------------------------------------------------------------------------
+/*
+  노드로 구현도 했음 
+  실행할 때는 문제가 없지만
+  정답은 아님
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node
+{
+	struct node* NEXTNODE;
+	int data;
+}NODE;
+
+typedef struct list
+{
+	NODE* List;
+	NODE* Top;
+}List;
+void create_List(List** Stack)
+{
+	(*Stack) = (List*)malloc(sizeof(List));
+	(*Stack)->List = NULL;
+	(*Stack)->Top = NULL;
+}
+NODE* create_Node(int Data)
+{
+	NODE* node = (NODE*)malloc(sizeof(NODE));
+	node->data = Data;
+	node->NEXTNODE = NULL;
+
+	return node;
+}
+
+
+void push(List* Stack,NODE* newnode) 
+{
+	if (Stack->List == NULL)
+	{
+		Stack->List = newnode;
+	}
+	else
+	{
+		NODE* top = Stack->List;
+		while (top->NEXTNODE != NULL)
+		{
+			top = top->NEXTNODE;
+		}
+		top->NEXTNODE = newnode;
+	}
+
+	Stack->Top = newnode;
+}
+NODE* pop(List* List) 
+{
+	NODE* TopNode = List->Top;
+	if (List->List == List->Top)
+	{
+		List->List = NULL;
+		List->Top = NULL;
+	}
+	else
+	{
+		NODE* SearchTop = List->List;
+		while (SearchTop->NEXTNODE != TopNode)
+		{
+			SearchTop = SearchTop->NEXTNODE;
+		}
+		List->Top = SearchTop;
+		SearchTop->NEXTNODE = NULL;
+	}
+	return TopNode;
+}
+int addstack(List* stack)
+{
+	int sum = 0;
+	NODE* node = stack->List;
+	while (node->NEXTNODE != NULL)
+	{
+		sum += node->data;
+		node = node->NEXTNODE;
+	}
+	sum += node->data;
+	return sum;
+}
+
+void main() {
+	int k;
+	int input;
+	List* stack;
+	List* popData;
+	NODE* node;
+	create_List(&stack);
+
+	scanf("%d", &k);
+
+	for (int i = 0; i < k; i++)
+	{
+		scanf("%d", &input);
+
+		if (input == 0)
+		{
+			popData = pop(stack);
+		}
+		else
+		{
+			node = create_Node(input);
+			push(stack, node);
+		}
+		
+
+	}
+
+	printf("%d\n", addstack(stack));
+}
+
+
+
+
+
