@@ -1,12 +1,4 @@
-package test;
-
 import java.util.Scanner;
-/*
- * https://st-lab.tistory.com/101
- * 
- */
-
-
 
 public class Beakjoon_1018 {
 	

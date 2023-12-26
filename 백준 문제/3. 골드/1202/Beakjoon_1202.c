@@ -5,8 +5,8 @@
 
 typedef struct j
 {
-	int mass; //무게 
-	int val; // 가격
+	int mass;
+	int val; 
 }Info;
 
 #define padding 5;
@@ -61,7 +61,6 @@ int main()
 		push(&bag,newInfo, &usedSize_bag);
 	}
 
-	// 가방을 다 조회할 때 까지 
 	while (usedSize_bag != 0)
 	{
 		Info bag_a = pop(&bag, &usedSize_bag);

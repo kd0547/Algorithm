@@ -2,7 +2,6 @@
 #include<stdlib.h>
 
 
-
 typedef struct tagQueue
 {
 	
@@ -94,9 +93,7 @@ int dequeue(Queue* queue)
 
 	int remove = queue->tree[0];
 
-	//노드 삭제
 	queue->tree[0] = 0;
-	// 마지막 노드와 스왑 마지막 노드와 바꾸면 가장 루트는 트리에서 가장 큰 값이 된다. 
 	queue->UsedSize--;
 	swap(queue, queue->UsedSize, 0);
 
@@ -106,7 +103,6 @@ int dequeue(Queue* queue)
 
 	while (1)
 	{
-		//첫번째 회전은 root
 		int SelectedChild = 0;
 
 		if (leftPosition >= queue->UsedSize)
