@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void QuickSelect(int source[], int left, int right);
+int QuickSelect(int source[], int left, int right, int select);
 int partition(int source[], int left, int right);
 int array1[5000001];
 
@@ -14,21 +14,21 @@ int main()
 {
 	cin >> n >> k;
 
-	for (int i = 0; i < n; i++)
+	for (int i = 1; i <= n; i++)
 	{
 		cin >> array1[i];
 	}
 
-	QuickSelect(array1, 0, n - 1);
+	int result = QuickSelect(array1, 1, n, k);
 
-	cout << array1[k - 1] << endl;
+	cout << result << endl;
 }
 
 int partition(int source[], int left, int right)
 {
 	int pivot = source[left];
 	int low = left + 1, high = right;
-	while (low <= right)
+	while (low <= high)
 	{
 		while (low <= right && source[low] <= pivot)
 			low++;
@@ -45,22 +45,18 @@ int partition(int source[], int left, int right)
 
 int QuickSelect(int source[], int left, int right, int select)
 {
-	if (select > 0 && select >= right - left + 1)
+	int pivot_index = partition(source, left, right);
+
+	if (pivot_index - left == select - 1)
 	{
-		int pivot_index = partition(source, left, right);
-
-		if(pivot_index - left == select -1)
-		{
-			return source[pivot_index];
-		}
-		else if(pivot_index - left > select - 1)
-		{
-			return QuickSelect(source,left,pivot_index-1,select);
-		}
-		else
-		{
-			return QuickSelect(source,pivot_index+1,right,select);
-		}
-
+		return source[pivot_index];
+	}
+	else if (pivot_index - left > select - 1)
+	{
+		return QuickSelect(source, left, pivot_index - 1, select);
+	}
+	else
+	{
+		return QuickSelect(source, pivot_index + 1, right, select);
 	}
 }
