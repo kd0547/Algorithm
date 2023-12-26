@@ -1,0 +1,16 @@
+SELECT
+    user_id,
+    u.NICKNAME,
+    sum(PRICE) AS TOTAL_SALES
+FROM
+    USED_GOODS_USER u
+    INNER JOIN USED_GOODS_BOARD b ON u.USER_ID = b.WRITER_ID
+WHERE
+    b.status = 'DONE'
+GROUP BY
+    u.user_id,
+    u.NICKNAME
+HAVING
+    sum(PRICE) >= 700000
+ORDER BY
+    TOTAL_SALES ASC;
