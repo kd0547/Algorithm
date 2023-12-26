@@ -4,7 +4,7 @@
 
 int rope[MAX];
 
-void quickSort(int *Array, int start, int end);
+void QuickSelect(int *Array, int start, int end);
 void swap(int *a, int *b);
 int max(int max, int src);
 int main()
@@ -21,7 +21,7 @@ int main()
 		scanf_s("%d", &rope[i]);
 	}
 
-	quickSort(rope, 0, N - 1);
+	QuickSelect(rope, 0, N - 1);
 
 	while (k <= N)
 	{
@@ -48,7 +48,7 @@ int max(int max, int src)
 		return 0;
 }
 
-void quickSort(int *array, int left, int right)
+void QuickSelect(int *array, int left, int right)
 {
 
 	if (left >= right)
@@ -74,8 +74,8 @@ void quickSort(int *array, int left, int right)
 			swap(&array[start], &array[end]);
 		}
 	}
-	quickSort(array, left, end - 1);
-	quickSort(array, end + 1, right);
+	QuickSelect(array, left, end - 1);
+	QuickSelect(array, end + 1, right);
 }
 void swap(int *a, int *b)
 {
